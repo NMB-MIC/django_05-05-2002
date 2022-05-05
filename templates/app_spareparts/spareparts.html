@@ -1,0 +1,45 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block content %}
+<h1>SPAREPART PAGE</h1>
+<p>This is sparepart page</p>
+
+<p><a href="{% url 'new_sparepart'%}">Add new sparepart click here</a></p>
+
+<form  action="{% url 'spareparts' %}">
+  <input  type="search"   placeholder="Search"  name="search">
+  <button type="submit">Search</button>
+</form>
+
+{% if spareparts %}
+<table style="border-collapse: collapse">
+    <thead >
+      <th style="border: 1px solid">id</th >
+      <th style="border: 1px solid">name</th>
+      <th style="border: 1px solid">part_number</th>
+      <th style="border: 1px solid">qty</th>
+      <th style="border: 1px solid">maker</th>
+      <th style="border: 1px solid">image</th>
+      <th style="border: 1px solid">deposit</th>
+      <th style="border: 1px solid">withdraw</th>
+      <th style="border: 1px solid">delete</th>
+    </thead>
+    {% for part in spareparts %}
+      <tr>
+        <td style="border: 1px solid">{{part.id}}</td>
+        <td style="border: 1px solid">{{part.name}}</td>
+        <td style="border: 1px solid">{{part.part_number}}</td>
+        <td style="border: 1px solid">{{part.qty}}</td>
+        <td style="border: 1px solid">{{part.maker}}</td>
+        <td style="border: 1px solid"><img src="{{part.image.url}}" width="80" height="80"></td>
+        <td style="border: 1px solid"><button><a style="text-decoration:none;" href="{%url 'deposit' part.id %}">click me</a></button></td>
+        <td style="border: 1px solid"><button><a style="text-decoration:none;" href="{%url 'withdraw' part.id %}">click me</a></button></td>
+        <td style="border: 1px solid"><button><a style="text-decoration:none;" href="{%url 'delete' part.id %}">click me</a></button></td>
+      </tr>
+    {% endfor %}
+  </table>
+
+{%else%}
+  <p>No access</p>
+{%endif%}  
+{% endblock %}
